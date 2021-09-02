@@ -1,21 +1,45 @@
-import React from 'react';
-import {Input} from 'reactstrap';
- 
-const SearchIndex extends Component() {
-   this.state = {
-     things: ['pen', 'marker', 'eraser', 'notebook', 'pencil', 'scissors', 'highlighter', 'stapler', 'paper clip', 'binder', 'hole punch', 'laminator', 'laminating sheets', 'protective sheets', 'index cards']
-   }
- }
+import React, { Component } from 'react';
+import { Input } from 'reactstrap';
 
- function searchFunction() {
- }
 
- render() {
-     <div>
-       <Input placeholder='Search Here' />
-       <h3>Results:</h3>
-     </div>
- }
+class SearchIndex extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      things: ['pen', 'marker', 'eraser', 'notebook', 'pencil', 'scissors', 'highlighter', 'stapler', 'paper clip', 'binder', 'hole punch', 'laminator', 'laminating sheets', 'protective sheets', 'index cards'],
+      searchResults: []
+    }
+    this.searchFunction = this.searchFunction.bind(this)
+  }
 
- 
-export SearchIndex;
+  searchFunction(value) {
+    console.log('in searchFunction, value is', value)
+    // { console.log(this.state.things) }
+    let searchResults = this.state.things.filter(srch => srch.includes(value.toLowerCase()))
+    console.log('searchResults are ', searchResults)
+    this.setState({searchResults: searchResults})
+  }
+
+  displaySearch = (result, resultId) => <p key={resultId}>{result}</p>
+
+  render() {
+    console.log("in searchindex")
+    return (
+      <div>
+        <Input placeholder='Search Here' onChange={(e) => this.searchFunction(e.target.value)} />
+
+        <h3>Results:</h3>
+      
+        {this.state.searchResults && this.state.searchResults.length > 0
+          ? this.state.searchResults.map(this.displaySearch)
+          : this.state.things.map(this.displaySearch)
+        }
+
+      </div>
+    )
+  }
+}
+export default SearchIndex;
+
+
+
