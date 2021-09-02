@@ -14,22 +14,20 @@ class SearchIndex extends Component {
 
   searchFunction(value) {
     console.log('in searchFunction, value is', value)
+    //     NOTE: Use curlies around the console log.
     // { console.log(this.state.things) }
     let searchResults = this.state.things.filter(srch => srch.includes(value.toLowerCase()))
-    console.log('searchResults are ', searchResults)
     this.setState({searchResults: searchResults})
   }
 
   displaySearch = (result, resultId) => <p key={resultId}>{result}</p>
 
   render() {
-    console.log("in searchindex")
     return (
       <div>
         <Input placeholder='Search Here' onChange={(e) => this.searchFunction(e.target.value)} />
 
         <h3>Results:</h3>
-      
         {this.state.searchResults && this.state.searchResults.length > 0
           ? this.state.searchResults.map(this.displaySearch)
           : this.state.things.map(this.displaySearch)

@@ -10,7 +10,7 @@ class DogIndex extends Component {
             imageUrl: ''
         }
 
-        // Need to bind 'this' if using async displayDog().  Binding isn't needed if using async with an arrow function.
+        //      NOTE:  Need to bind 'this' if using async displayDog().  Binding isn't needed if using async with an arrow function.
         // this.displayDog = this.displayDog.bind(this)
     }
 
@@ -25,7 +25,7 @@ class DogIndex extends Component {
                 loaded: true
             })
         } catch (err) {
-            console.log("ERROR:", err)
+            console.log("ERROR: ", err)
         }
     }
 
@@ -43,7 +43,6 @@ class DogIndex extends Component {
                 <button type='button' onClick={this.displayDog}>Show Another Dog</button>
             </>
         )
-
     }
 }
 
