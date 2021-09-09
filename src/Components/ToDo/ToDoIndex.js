@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-
+import { Input } from 'reactstrap'
+ 
 class ToDoIndex extends Component {
     constructor(props) {
         super(props)
-        // HERE:
-        // Instead of using 2 arrays, consider using an array of objects, 
-        // where each object has a task and a status.
         this.state = {
-                newTask: '',
-                tasksToDo: [],
-                tasksCompleted: []
+            newTask: '',
+            tasksToDo: ['homework', 'walk dog', 'email jeremy'],
+            tasksCompleted: ['Unload dishwasher', 'email Jen']
         }
 
         this.addTask = this.addTask.bind(this)
@@ -17,41 +15,36 @@ class ToDoIndex extends Component {
     }
 
     handleChange(event) {
-        this.setState({newTask: event.target.value})
+        console.log('in handleChange')
+        this.setState({ newTask: event.target.value })
     }
 
     addTask(event) {
-        {console.log( this.state.newTask )}
-        // HERE:
-        // Add this.state.newTask to the tasksToDo array.
+        console.log('in addTask')
+        { console.log(this.state.newTask) }
+        this.state.tasksToDo.push(this.state.newTask)
+        { console.log(this.state.tasksToDo)}
     }
 
     completeTask() {
-        // HERE:
         // Move the task from the tasksToDo array to the TasksCompleted array.
     }
 
-    displayTaskList() {
-        // HERE:
-        // Display each task from the tasksToDo array along with a 'Not Done' status,
-        // and each task from the tasksCompleted array along with a 'Completed status.
-    }
+    displayTaskList = (result, resultId) => <p key={resultId}>{result}</p>
 
     render() {
         return (
-            <>
-            <form onSubmit={this.addTask}>
-                <label>Task:
-                <input type="text" value={this.state.task} onChange={this.handleChange}/>
-                </label>
-                <input type="submit" value="Add Task" />
-                {/* <button onClick={(newTask) => {this.addTask(newTask)}}>Add Task</button> */}
-            </form>
+            <div>
+                <input type="text" value={this.state.newtask} onChange={this.handleChange}/>
+                <button type='button' onClick={this.addTask}>Add Task</button>
+                
+                <h3>Tasks To Do:</h3>
+                { this.state.tasksToDo.map(this.displayTaskList) }
 
-            {/* HERE: */}
-            {/* Display the tasks list (displayTaskList) and a button for each item in the 
-            tasksToDo array to mark it as complete.  When the task is marked as complete, call the completeTask function to update both arrays. */}
-            </>
+                <h3>Completed Tasks:</h3>
+                { this.state.tasksCompleted.map(this.displayTaskList) }
+            </div>
+
         )
     }
 }
